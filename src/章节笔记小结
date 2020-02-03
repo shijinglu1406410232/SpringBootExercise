@@ -1,0 +1,100 @@
+Spring Boot这本书：
+    状态好的时候学博客项目，
+    状态不好的时候复习和练习之前学过的。
+SSM黑马教程：
+    除了Spring JDBC外，其余的内容如果不能用脑子复述一次就赶紧练习和默写。
+    其中Spring前三章、MyBatis前四章、SpringMVC所有，SSM大整合，最后大
+    整合要加个上传下载的功能（比如人员的图像或者附件之类的）。
+
+
+    天冷出去晒太阳或者外面学敲代码，另外，多跑跑步；
+
+学习完了要再默写一次。
+-----------------------------------------------------------------------------------
+
+第二章复习：
+
+值的注入：
+
+1）先用Spring Initializr来迅速地建一个Spring Boot工程，并建两个实体类，其中一个需要注入属性的实体
+类添加通用注解将该组件注入到Spring容器中，由于需要往这个里面去注入属性，所以要添加一个注解
+@ConfigurationProperties(prefix="")。
+
+2) 在resource目录下用全局配置文件application.properties给实体类对象person进行值的注入，即赋值。
+
+3）在pom.xml中添加spring-boot-configuration-processor的依赖。
+
+4）写测试类和启动类。（在启动类中用@SpringBootApplication(@ScanBasePackages="")，该注解用于
+扫描注入类所对应的包。 在测试类中，用@RunWith(SpringRunner.class)注解去加载测试运行器，另外，用
+@SpringBootApplication加载上下文环境，并向该注解的参数中添加启动类.class作为的参数，最后并注入要
+依赖的类对象，最后运行测试的方法。
+
+
+(注意每个类之间都有关联性)
+
+说明：
+   1.第二步也可用application.yaml文件方式来进行属性值的赋予，即键值对的方式赋值。
+   2.对于对某个类（如Student类）中的某一个或几个属性赋值可在属性值上添加@Value("${person.id}")，看pom
+   中是否需要导入Spring的相关的文件。
+   3.@ConfigurationProperties和@Value这两个注解的区别在于前一个是SpringBoot的注解，而后一个
+   是Spring的注解，前者适用于批量注入属性，后者适用于单个属性的注入。
+
+
+
+自定义配置的值的注入：
+   也可在resource下自定义配置文件，需要在配置类上加入@Configuration，并用@PropertySource注解指定
+   配置文件的路径及名称，另外要添加EnableConfigurationProperties(currentClass.class)或用注解
+   @SpringBootApplication注解，并最后写测试类测试。
+
+
+Profile多环境配置：
+   多环境配置有两种方式：1.用Profile文件进行多环境配置。 2.用@Profile注解进行多环境配置。
+
+   法1.用Profile文件进行多环境配置
+       1）在resource目录下，分别建环境配置文件，文件名格式：application-xxx.properties，内容主要是：
+          server.port=8081。
+       2）在resources目录中的全局配置文件application.properties中选择要激活的端口，代码如下：
+          spring.profiles.active=dev
+       3) 运行启动类查看结果。
+   说明：不知结果为什么没有出来？
+
+   法2.用@Profile注解进行多环境配置
+       1）在配置包下建一个config包，并在其下建一个用于配置数据库的接口文件。
+           public interface DBConfigure{
+               void configure();
+           }
+       2) 并建若干实现类来实现接口，用以模拟连接配置不同的数据库环境。
+           @Configuration
+           @Profile("dev")
+           public class devDBConfigure implements DBConfigure{
+               System.out.println("数据库配置环境");
+           }
+       3)在resources目录中的全局配置文件application.properties中选择要激活的端口，代码如下：
+         spring.profiles.active=dev
+       4）建一个测试类。
+         @RestController
+         public class DBController{
+            @Autowired
+            private DBConnector dbConnector;
+            public void showDB(){
+                void configure();
+            }
+         }
+       5）添加扫描包（配置类）路径，运行启动类
+          //加载配置并扫描包，并开启实例化类
+          @SpringBootA
+          pplication(scanBasePackages = "com.Controller.*")
+          public class SpringbootexerciseApplication {
+            public static void main(String[] args) {
+                SpringApplication.run(SpringbootexerciseApplication.class, args);
+            }
+          }
+
+
+Spring Boot数据访问
+
+MyBatis的代码写两次，写一次，某些不熟悉的再默写一次，总结放最后。
+
+
+-----------------------------------------------------------------------------------
+

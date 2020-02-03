@@ -1,0 +1,13 @@
+package com.springboot.app;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages="com.sjl.*")//源码好像没有入参
+public class SpringbootexerciseApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootexerciseApplication.class, args);
+	}
+
+}

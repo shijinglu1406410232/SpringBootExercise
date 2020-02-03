@@ -1,0 +1,25 @@
+package com.test;
+
+import com.springboot.app.SpringbootexerciseApplication;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import com.sjl.domain.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+//测试运行器
+@SpringBootTest(classes = SpringbootexerciseApplication.class)
+//加载测试上下文环境
+public class test {
+    //需要注入值的类的对象的注入，按照类型注入值。
+    @Autowired
+    private Person person;
+
+    @Test
+    public void contextLoads() {
+        System.out.println("person:"+person);
+    }
+}
+//domain这个包中类在处理数据，app这个包在加载并获取数据，test包并进一步从app包中拿值。

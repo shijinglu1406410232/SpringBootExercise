@@ -1,0 +1,4 @@
+    //当前页
+    private int pageNum;
+    //每页的数量
+    private int pageSize;
